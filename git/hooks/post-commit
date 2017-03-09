@@ -1,0 +1,13 @@
+#!/bin/bash
+LOG="cl format"
+last=`git log -1 HEAD --pretty=format:%s`
+if [ "$last" = "$LOG" ] ; then
+  exit 0
+fi
+
+echo "Committed. Running cl format."
+git cl format
+git commit -a -m"$LOG"
+if [ $? -eq 0 ] ; then
+  git show HEAD | cat
+fi
